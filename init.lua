@@ -1,76 +1,57 @@
 vim.loader.enable()
+
+
 -- let sync anything with system clipboard
 vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
--- tabulations
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.o.undofile = true
-
-vim.o.number = true
--- vim.opt.relativenumber = true
-
-vim.o.wrap = false
-
--- useless tbh
-vim.o.showtabline = 0
+require("options")
 
 
 vim.g.mapleader = " "
+
 vim.g.maplocalleader = " "
 
-vim.o.mouse = "a"
-
-vim.o.showmode = false
-
-vim.o.breakindent = true
-
-vim.o.signcolumn = "yes"
-
-vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
-local map = vim.keymap.set
-local unmap = vim.keymap.del
+--
+-- plugins
+--
 
 vim.pack.add({
-	-- file manager
-	"https://github.com/stevearc/oil.nvim",
+	"https://github.com/stevearc/oil.nvim", -- file manager
 
 	"https://github.com/folke/flash.nvim",
-	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/neovim/nvim-lspconfig", -- good
+	"https://github.com/nvim-treesitter/nvim-treesitter", -- idk why i need this
+
 	-- theme
 	"https://github.com/folke/tokyonight.nvim",
+	"https://github.com/ellisonleao/gruvbox.nvim",
 
+	-- git
 	"https://github.com/NeogitOrg/neogit",
 	"https://github.com/esmuellert/codediff.nvim",
 
+	-- idk why i need this
 	"https://github.com/nvim-telescope/telescope.nvim",
+
+	-- needed to build by myself
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/nvim-lua/plenary.nvim",
 
+	-- good
 	"https://github.com/nvim-mini/mini.nvim",
 	
 	"https://github.com/saghen/blink.lib",
 	"https://github.com/saghen/blink.cmp",
-	"https://github.com/lewis6991/gitsigns.nvim",
 
+	-- can help
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/folke/todo-comments.nvim",
 })
 
-vim.cmd.colorscheme "tokyonight-night"
-
-
 require("oil").setup({
 	default_file_explorer = true,
 	columns = {
-		-- "permissions",
+		"permissions",
 		"icon",
 	},
 
@@ -102,8 +83,6 @@ local cmp = require('blink.cmp')
 cmp.build():pwait()
 cmp.setup()
 
-local gitsigns = require("gitsigns")
-gitsigns.setup({})
 
 require("which-key").setup({
 	delay = 0,
@@ -117,28 +96,32 @@ require("which-key").setup({
 	},
 })
 
-require("todo-comments").setup({ signs = false })
+require("todo-comments").setup({ })
 
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 
 require("mini.statusline").setup({ use_icons = true })
 
-map("n", "<Esc>", "<cmd>nohlsearch<cr>")
+require("mini.diff").setup()
 
--- exit terminal with easier shortcut
-map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+require("gruvbox").setup()
 
-map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
+--
+-- keymaps
+--
 
-local builtin = require("telescope.builtin")
-map("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-map("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-map("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-map("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+require("keymaps")
+
 
 vim.lsp.enable({
 	'lua_ls',
 	'gopls',
+	'clangd',
+	'rust-analyzer',
+	'zls',
+	'ruff',
 })
+
+vim.cmd.colorscheme "gruvbox"
+
