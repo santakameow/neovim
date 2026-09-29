@@ -1,6 +1,5 @@
 vim.loader.enable()
 
-
 -- let sync anything with system clipboard
 vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
@@ -20,11 +19,14 @@ vim.pack.add({
 
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/neovim/nvim-lspconfig", -- good
+	"https://github.com/mfussenegger/nvim-jdtls",
+
 	"https://github.com/nvim-treesitter/nvim-treesitter", -- idk why i need this
 
 	-- theme
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/ellisonleao/gruvbox.nvim",
+	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine", },
 
 	-- git
 	"https://github.com/NeogitOrg/neogit",
@@ -105,7 +107,6 @@ require("mini.statusline").setup({ use_icons = true })
 
 require("mini.diff").setup()
 
-require("gruvbox").setup()
 
 --
 -- keymaps
@@ -113,15 +114,20 @@ require("gruvbox").setup()
 
 require("keymaps")
 
+-- lsp
 
 vim.lsp.enable({
-	'lua_ls',
-	'gopls',
-	'clangd',
-	'rust-analyzer',
-	'zls',
-	'ruff',
+	'lua_ls', -- lua lang server
+	'gopls', -- go lang server
+	'clangd', -- c, cpp lang server
+	'rust-analyzer', -- rust lang server
+	'zls', -- zig lang server
+	'ruff', -- python lang server
+	'jdtls', -- java lang server
+	'taplo', -- toml lang server
 })
+-- require("gruvbox").setup()
+require("rose-pine").setup()
 
-vim.cmd.colorscheme "gruvbox"
-
+-- vim.cmd.colorscheme "gruvbox"
+vim.cmd.colorscheme "rose-pine"
