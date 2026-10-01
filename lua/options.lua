@@ -1,30 +1,45 @@
+local o = vim.o
+
+o.winborder = "rounded"
+
 -- tabulations
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+o.tabstop = 4
+o.shiftwidth = 4
 
-vim.o.ignorecase = true
-vim.o.smartcase = true
+o.ignorecase = true
+o.smartcase = true
 
-vim.o.undofile = true
+o.undofile = true
 
-vim.o.number = true
--- vim.opt.relativenumber = true
+o.number = true
+-- o.relativenumber = true
 
-vim.o.wrap = false
+o.wrap = false
 
 -- useless tbh
-vim.o.showtabline = 0
+o.showtabline = 0
 
+o.mouse = "a"
 
+o.showmode = false
 
-vim.o.mouse = "a"
+-- indent это отступ
+-- типа 
+-- ```python
+-- def meow():
+--     print("meow")
+-- ```
+o.smartindent = true
+o.breakindent = true
 
-vim.o.showmode = false
+o.signcolumn = "yes"
 
-vim.o.breakindent = true
-
-vim.o.signcolumn = "yes"
-
-vim.o.list = true
+o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+o.confirm = true
+
+o.completeopt = "fuzzy,menuone,noselect"
+o.swapfile = false
+o.splitright = true
+o.expandtab = true

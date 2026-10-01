@@ -1,5 +1,4 @@
 vim.loader.enable()
-
 -- let sync anything with system clipboard
 vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
@@ -14,55 +13,61 @@ vim.g.maplocalleader = " "
 -- plugins
 --
 
-vim.pack.add({
-	"https://github.com/stevearc/oil.nvim", -- file manager
+vim.pack.add {
+    "https://github.com/stevearc/oil.nvim", -- file manager
+    "https://github.com/Eutrius/Otree.nvim",
 
-	"https://github.com/folke/flash.nvim",
-	"https://github.com/neovim/nvim-lspconfig", -- good
-	"https://github.com/mfussenegger/nvim-jdtls",
+    "https://github.com/folke/flash.nvim",
+    "https://github.com/neovim/nvim-lspconfig", -- good
+    "https://github.com/mfussenegger/nvim-jdtls",
 
-	"https://github.com/nvim-treesitter/nvim-treesitter", -- idk why i need this
+    "https://github.com/nvim-treesitter/nvim-treesitter", -- idk why i need this
 
-	-- theme
-	"https://github.com/folke/tokyonight.nvim",
-	"https://github.com/ellisonleao/gruvbox.nvim",
-	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine", },
+    -- theme
+    "https://github.com/folke/tokyonight.nvim",
+    "https://github.com/ellisonleao/gruvbox.nvim",
+    { src = "https://github.com/rose-pine/neovim", name = "rose-pine", },
 
-	-- git
-	"https://github.com/NeogitOrg/neogit",
-	"https://github.com/esmuellert/codediff.nvim",
+    -- git
+    "https://github.com/NeogitOrg/neogit",
+    "https://github.com/esmuellert/codediff.nvim",
 
-	-- idk why i need this
-	"https://github.com/nvim-telescope/telescope.nvim",
+    -- idk why i need this
+    "https://github.com/nvim-telescope/telescope.nvim",
 
-	-- needed to build by myself
-	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
-	"https://github.com/nvim-lua/plenary.nvim",
+    -- needed to build by myself
+    "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
 
-	-- good
-	"https://github.com/nvim-mini/mini.nvim",
-	
-	"https://github.com/saghen/blink.lib",
-	"https://github.com/saghen/blink.cmp",
+    -- good
+    "https://github.com/nvim-mini/mini.nvim",
 
-	-- can help
-	"https://github.com/folke/which-key.nvim",
-	"https://github.com/folke/todo-comments.nvim",
-})
+    -- good completition
+    "https://github.com/saghen/blink.lib",
+    "https://github.com/saghen/blink.cmp",
 
-require("oil").setup({
-	default_file_explorer = true,
-	columns = {
-		"permissions",
-		"icon",
-	},
+    -- can help
+    "https://github.com/folke/which-key.nvim",
+    "https://github.com/folke/todo-comments.nvim",
+}
 
-	lsp_file_methods = {
-		enabled = true,
-		autosave_changes = true,
-		timeout_ms = 1000,
-	},
-})
+require("oil").setup {
+--     default_file_explorer = true,
+--     columns = {
+--         "permissions",
+--         "size",
+--         "mtime",
+--         "icon",
+--     },
+--
+--     lsp_file_methods = {
+--         enabled = true,
+--         autosave_changes = true,
+--         timeout_ms = 1000,
+--     },
+}
+
+require("Otree").setup()
 
 require("flash").setup()
 
@@ -81,24 +86,26 @@ require("telescope").setup {
 }
 require("telescope").load_extension("fzf")
 
-local cmp = require('blink.cmp')
+local cmp = require 'blink.cmp'
 cmp.build():pwait()
 cmp.setup()
 
 
-require("which-key").setup({
-	delay = 0,
-	icons = { mappings = vim.g.have_nerd_font },
-	-- Document existing key chains
-	spec = {
-		{ '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
-		{ '<leader>t', group = '[T]oggle' },
-		{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
-		{ 'gr', group = 'LSP Actions', mode = { 'n' } },
-	},
-})
+require("which-key").setup {
+    delay = 0,
+    icons = { mappings = vim.g.have_nerd_font },
+    -- Document existing key chains
+    spec = {
+        { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+        { 'gr', group = 'LSP Actions', mode = { 'n' } },
+    },
+}
 
-require("todo-comments").setup({ })
+require("todo-comments").setup { }
+
+-- im not a gay btw but this kinda hot
 
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
@@ -116,18 +123,23 @@ require("keymaps")
 
 -- lsp
 
-vim.lsp.enable({
-	'lua_ls', -- lua lang server
-	'gopls', -- go lang server
-	'clangd', -- c, cpp lang server
-	'rust-analyzer', -- rust lang server
-	'zls', -- zig lang server
-	'ruff', -- python lang server
-	'jdtls', -- java lang server
-	'taplo', -- toml lang server
-})
--- require("gruvbox").setup()
-require("rose-pine").setup()
+vim.lsp.enable {
+    'lua_ls', -- lua lang server
+    'gopls', -- go lang server
+    'clangd', -- c, cpp lang server
+    'rust-analyzer', -- rust lang server
+    'zls', -- zig lang server
+    'ruff', -- python lang server
+    'jdtls', -- java lang server
+    'taplo', -- toml lang server
+    'nixd', -- nix lang server
+}
+
+-- you can switch themes here
 
 -- vim.cmd.colorscheme "gruvbox"
-vim.cmd.colorscheme "rose-pine"
+vim.cmd.colorscheme "rose-pine-moon"
+
+if vim.g.neovide then
+    vim.o.guifont = "JetBrainsMono Nerd Font:h13"
+end

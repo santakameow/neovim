@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "Otree.nvim": {
+      "rev": "1540ea0a300916f1c43063fda185463b3e8f2f40",
+      "src": "https://github.com/Eutrius/Otree.nvim"
+    },
     "baleia.nvim": {
       "rev": "710537ff5cd669c5a76c5f5b6a9169fd9b913d18",
       "src": "https://github.com/m00qek/baleia.nvim"
