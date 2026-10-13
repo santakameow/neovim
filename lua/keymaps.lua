@@ -5,7 +5,7 @@ map("n", "<Esc>", "<cmd>nohlsearch<cr>")
 -- exit terminal with easier shortcut
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-map("n", "-", "<cmd>Otree<cr>", { desc = "Open otree" })
+map("n", "-", "<cmd>Oil<cr>", { desc = "Open file explorer" })
 map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
 
 local builtin = require("telescope.builtin")

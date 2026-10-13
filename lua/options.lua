@@ -1,6 +1,6 @@
 local o = vim.o
 
-o.winborder = "rounded"
+-- o.winborder = "rounded"
 
 -- tabulations
 o.tabstop = 4
