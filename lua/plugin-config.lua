@@ -14,23 +14,7 @@ require("oil").setup {
     },
 }
 
-require("flash").setup()
-
 require("neogit").setup()
-
-require("telescope").setup {
-    extensions = {
-        fzf = {
-            fuzzy = true,             -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-            -- the default case_mode is "smart_case"
-        }
-    }
-}
--- The native extension is optional; an unbuilt library must not stop startup.
-pcall(require("telescope").load_extension, "fzf")
 
 require("blink.cmp").setup {
     keymap = { preset = "default" },
@@ -45,9 +29,9 @@ require("which-key").setup {
     icons = { mappings = vim.g.have_nerd_font },
     -- Document existing key chains
     spec = {
-        { '<leader>s', group = '[S]earch',    mode = { 'n', 'v' } },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk',  mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+        { '<leader>f', group = 'Find' },
+        { '<leader>g', group = 'Git' },
+        { '<leader>l', group = 'LSP and diagnostics' },
         { 'gr',        group = 'LSP Actions', mode = { 'n' } },
     },
 }
@@ -61,5 +45,24 @@ require("mini.statusline").setup { use_icons = true }
 
 require("mini.diff").setup()
 
+-- setup fff
+require("fff").setup {
+    lazy_sync = true,
+    prompt = '$ ',
+    prompt_vim_mode = true,
+    enable_home_dir_scanning = false,
+
+}
+
+require("transparent").setup {}
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true }),
+    callback = function(event)
+        -- Files without an installed parser keep their regular syntax highlighting.
+        pcall(vim.treesitter.start, event.buf)
+    end,
+})
 
 vim.cmd.colorscheme "rose-pine-moon"
+

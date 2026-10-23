@@ -43,7 +43,3 @@ o.completeopt = "fuzzy,menu,menuone,noselect"
 o.swapfile = false
 o.splitright = true
 o.expandtab = true
-
-o.foldenable = true
-o.foldlevel = 99
-o.foldmethod = "expr"
