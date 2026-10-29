@@ -2,7 +2,6 @@ vim.pack.add {
     "https://github.com/stevearc/oil.nvim", -- file manager
 
     "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/mason-org/mason.nvim", -- language server installer
 
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 
@@ -32,12 +31,11 @@ vim.pack.add {
 
 -- idk why i really need this but its recommended by fff
 vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
-    local name, kind = ev.data.spec.name, ev.data.kind
-    if name == 'fff' and (kind == 'install' or kind == 'update') then
-      if not ev.data.active then vim.cmd.packadd('fff') end
-      require('fff.download').download_or_build_binary()
-    end
-  end,
+    callback = function(ev)
+        local name, kind = ev.data.spec.name, ev.data.kind
+        if name == 'fff' and (kind == 'install' or kind == 'update') then
+            if not ev.data.active then vim.cmd.packadd('fff') end
+            require('fff.download').download_or_build_binary()
+        end
+    end,
 })
-

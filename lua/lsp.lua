@@ -1,7 +1,3 @@
--- Mason puts installed language servers on Neovim's PATH.
--- Install more servers with :Mason (nvim-lspconfig does not install binaries).
-require("mason").setup()
-
 vim.lsp.config("*", {
     capabilities = require("blink.cmp").get_lsp_capabilities(),
 })
