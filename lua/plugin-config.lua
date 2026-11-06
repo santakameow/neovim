@@ -45,6 +45,8 @@ require("mini.statusline").setup { use_icons = true }
 
 require("mini.diff").setup()
 
+require("mini.pairs").setup()
+
 -- setup fff
 require("fff").setup {
     lazy_sync = true,
